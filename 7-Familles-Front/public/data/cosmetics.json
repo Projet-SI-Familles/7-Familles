@@ -1,0 +1,181 @@
+{
+  "componentFamilies": [
+    {
+      "id": 1,
+      "name": "Humectants et Émollients",
+      "description": "Ces ingrédients sont particulièrement efficaces pour hydrater, nourrir et adoucir la peau."
+    },
+    {
+      "id": 2,
+      "name": "Antioxydants",
+      "description": "Ces actifs luttent contre le vieillissement cutané en protégeant les cellules des agressions extérieures et en stimulant la production de collagène."
+    },
+    {
+      "id": 3,
+      "name": "Exfoliants",
+      "description": "Ces ingrédients éliminent les cellules mortes et les impuretés, affinant le grain de peau et unifiant le teint."
+    },
+    {
+      "id": 4,
+      "name": "Calmants et Apaisants",
+      "description": "Ces ingrédients sont particulièrement adaptés aux peaux sensibles et réactives. Ils réduisent les rougeurs et les irritations."
+    },
+    {
+      "id": 5,
+      "name": "Autres Ingrédients",
+      "description": "Ingrédients divers avec des propriétés uniques."
+    },
+    {
+      "id": 6,
+      "name": "Actifs Hydratants",
+      "description": "Ces actifs permettent de maintenir l'hydratation de la peau."
+    },
+    {
+      "id": 7,
+      "name": "Actifs Anti-Âge",
+      "description": "Ces composants aident à réduire les signes de l'âge."
+    }
+  ],
+  "cosmeticComponents": [
+    {
+      "id": 1,
+      "name": "Lavande",
+      "familyId": 4,
+      "description": "La lavande possède des propriétés calmantes et apaisantes.",
+      "image": "lavande.png"
+    },
+    {
+      "id": 2,
+      "name": "Camomille",
+      "familyId": 4,
+      "description": "La camomille est idéale pour calmer les irritations de la peau.",
+      "image": "camomille.png"
+    },
+    {
+      "id": 3,
+      "name": "Menthe Poivrée",
+      "familyId": 4,
+      "description": "La menthe poivrée procure une sensation de fraîcheur et apaise la peau.",
+      "image": "menthepoivree.png"
+    },
+    {
+      "id": 4,
+      "name": "Aloe Vera",
+      "familyId": 1,
+      "description": "L'Aloe Vera hydrate et nourrit la peau en profondeur.",
+      "image": "aloe_vera.webp"
+    },
+    {
+      "id": 5,
+      "name": "Concombre",
+      "familyId": 1,
+      "description": "Le concombre est riche en eau et aide à hydrater la peau.",
+      "image": "concombre.webp"
+    },
+    {
+      "id": 6,
+      "name": "Huile d'Argan",
+      "familyId": 6,
+      "description": "L'huile d'argan est reconnue pour ses propriétés hydratantes et régénérantes.",
+      "image": "huile_argan.webp"
+    },
+    {
+      "id": 7,
+      "name": "Beurre de Karité",
+      "familyId": 6,
+      "description": "Le beurre de karité restaure l'élasticité de la peau.",
+      "image": "karite.webp"
+    },
+    {
+      "id": 8,
+      "name": "Huile de Coco",
+      "familyId": 1,
+      "description": "L'huile de coco nourrit en profondeur et adoucit la peau.",
+      "image": "huile_coco.webp"
+    },
+    {
+      "id": 9,
+      "name": "Cire d'Abeille",
+      "familyId": 5,
+      "description": "La cire d'abeille protège la peau et retient l'humidité.",
+      "image": "cire_abeille.webp"
+    },
+    {
+      "id": 10,
+      "name": "Charbon Actif",
+      "familyId": 3,
+      "description": "Le charbon actif absorbe les impuretés et purifie la peau.",
+      "image": "charbon_actif.webp"
+    },
+    {
+      "id": 11,
+      "name": "Argile Verte",
+      "familyId": 3,
+      "description": "L'argile verte détoxifie et nettoie en profondeur.",
+      "image": "argile_verte.webp"
+    },
+    {
+      "id": 12,
+      "name": "Thé Vert",
+      "familyId": 2,
+      "description": "Le thé vert est riche en antioxydants et purifie la peau.",
+      "image": "the_vert.webp"
+    },
+    {
+      "id": 13,
+      "name": "Acide Hyaluronique",
+      "familyId": 7,
+      "description": "L'acide hyaluronique réduit les rides et hydrate la peau.",
+      "image": "acide_hyaluronique.webp"
+    },
+    {
+      "id": 14,
+      "name": "Collagène",
+      "familyId": 7,
+      "description": "Le collagène améliore l'élasticité et la fermeté de la peau.",
+      "image": "collagene.webp"
+    },
+    {
+      "id": 15,
+      "name": "Vitamine C",
+      "familyId": 2,
+      "description": "La vitamine C illumine le teint et réduit les signes de l'âge.",
+      "image": "vitamine_c.webp"
+    },
+    {
+      "id": 16,
+      "name": "Glycérine",
+      "familyId": 1,
+      "description": "La glycérine est un humectant qui attire l'humidité dans la peau.",
+      "image": "glycerine.webp"
+    },
+    {
+      "id": 17,
+      "name": "Panthénol",
+      "familyId": 1,
+      "description": "Le panthénol hydrate et régénère les tissus cutanés.",
+      "image": "panthenol.webp"
+    },
+    {
+      "id": 18,
+      "name": "Vitamine E",
+      "familyId": 2,
+      "description": "La vitamine E protège les cellules des agressions extérieures.",
+      "image": "vitamine_e.webp"
+    },
+    {
+      "id": 19,
+      "name": "Rétinol",
+      "familyId": 7,
+      "description": "Le rétinol stimule la production de collagène.",
+      "image": "retinol.webp"
+    },
+    {
+      "id": 20,
+      "name": "Acide Salicylique",
+      "familyId": 3,
+      "description": "L'acide salicylique exfolie les cellules mortes et traite les imperfections.",
+      "image": "acide_salicylique.webp"
+    }
+  ]
+}

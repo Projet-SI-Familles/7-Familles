@@ -1,0 +1,27 @@
+.defeat-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #d32f2f, #ff5252);
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+  
+  .restart-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #d32f2f;
+    font-size: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .restart-btn:hover {
+    background-color: #d32f2f;
+    color: white;
+  }
+  

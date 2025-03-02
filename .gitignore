@@ -1,0 +1,31 @@
+# 🌐 ANGULAR (Frontend)
+7-Familles-Front/node_modules/
+7-Familles-Front/dist/
+7-Familles-Front/tmp/
+7-Familles-Front/out-tsc/
+7-Familles-Front/bazel-out/
+7-Familles-Front/.angular/cache
+7-Familles-Front/coverage/
+
+
+# IDEs & Editors (global)
+.idea/
+.project
+.classpath
+.settings/
+.vscode/
+.history/
+
+# Logs & Misc
+*.log
+hs_err_pid*
+replay_pid*
+testem.log
+.DS_Store
+Thumbs.db
+
+# Environnement & Secrets
+.env
+.env.local
+.env.production
+.env.development
