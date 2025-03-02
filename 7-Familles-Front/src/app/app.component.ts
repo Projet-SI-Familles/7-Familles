@@ -77,28 +77,36 @@ export class AppComponent {
   }
 
   selectFamily(family: ComponentFamily) {
-    if (!this.selectedComponent) return;
-  
-    if (this.selectedComponent.family?.id === family.id) {
-      this.selectedComponent.validated = true;
-      this.correctPlacements++;
-      this.cosmeticComponents = this.cosmeticComponents.filter(c => c.id !== this.selectedComponent!.id);
-    } else {
-      if (!this.incorrectAttempts[this.selectedComponent.id]) {
-        this.incorrectAttempts[this.selectedComponent.id] = [];
+      if (!this.selectedComponent) return;
+
+      if (this.selectedComponent.family?.id === family.id) {
+          this.selectedComponent.validated = true;
+          this.correctPlacements++;
+
+          // Ajoute la carte validée dans la famille correcte
+          this.familyDropTargets[family.id].push(this.selectedComponent);
+
+          // Retire la carte validée du plateau
+          this.cosmeticComponents = this.cosmeticComponents.filter(c => c.id !== this.selectedComponent!.id);
+      } else {
+          if (!this.incorrectAttempts[this.selectedComponent.id]) {
+              this.incorrectAttempts[this.selectedComponent.id] = [];
+          }
+          this.incorrectAttempts[this.selectedComponent.id].push(family.id);
+          this.remainingTime = Math.max(0, this.remainingTime - 10);
+
+          // Afficher la notification d'erreur et déclencher l'effet de shake
+          this.showErrorNotification = true;
+          setTimeout(() => this.showErrorNotification = false, 2000);
+          this.shakeEffect = true;
+          setTimeout(() => this.shakeEffect = false, 500);
       }
-      this.incorrectAttempts[this.selectedComponent.id].push(family.id);
-      this.remainingTime = Math.max(0, this.remainingTime - 10);
-  
-      this.showErrorNotification = true;
-      setTimeout(() => this.showErrorNotification = false, 2000);
-      this.shakeEffect = true;
-      setTimeout(() => this.shakeEffect = false, 500);
-    }
-    this.selectedComponent = null;
-    this.modalOpen = false;
-    this.checkGame();
+
+      this.selectedComponent = null;
+      this.modalOpen = false;
+      this.checkGame();
   }
+
   
   
 

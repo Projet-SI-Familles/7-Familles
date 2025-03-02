@@ -4,11 +4,11 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        USERNAME: bidule # À Modifier
-        UID: 501         # À Modifier
-        MAIL: bidule@univ-orleans.fr # À Modifier
-        NAME: "Machin Bidule"        # À Modifier
-    container_name: container-fw2-tp-bidule # À Modifier
+        USERNAME: benjamin
+        UID: 1000
+        MAIL: benjamin.perez@univ-orleans.fr
+        NAME: "Benjamin Perez"
+    container_name: container-projet-SI 
     command: /bin/bash
     tty: true
     stdin_open: true
