@@ -20,7 +20,7 @@ services:
     environment:
       PHP_IDE_CONFIG: serverName=contacts
       PS1: "[ $$(whoami) | $$(pwd) ] "
-      DATABASE_URL: "postgresql://postgres:postgres@postgres_db:5432/MemoCosm"
+      DATABASE_URL: "postgresql://postgres:postgres@postgres_db:5432/projetsi"
     depends_on:
       - postgres_db
 
@@ -31,11 +31,12 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: MemoCosm
+      POSTGRES_DB: projetsi
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
 
 volumes:
   postgres_data:
