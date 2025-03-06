@@ -10,7 +10,9 @@ RUN echo "$NAME ($EMAIL)"
 RUN echo "==============================="
 
 # installation bash
-RUN apk upgrade && apk --no-cache add bash git shadow
+RUN apk upgrade && apk --no-cache add bash git shadow \
+    && apk add --no-cache php82-pdo_pgsql php82-pgsql postgresql-dev
+RUN docker-php-ext-install pdo pdo_pgsql
 
 # installation npm et nodejs
 RUN apk --no-cache add npm nodejs=~22
