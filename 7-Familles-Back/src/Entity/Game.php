@@ -12,9 +12,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Game
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $codepartie = null;
+    #[ORM\GeneratedValue]
+    private ?int $idgame = null;
+
+    #[ORM\Column]
+    private ?string $codepartie = null;
 
     #[ORM\Column(type: Types::BOOLEAN, nullable: true)]
     private ?bool $iswin = null;
@@ -25,9 +28,20 @@ class Game
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTime $endDate = null;
 
-    public function getCodepartie(): ?int
+    public function getCodepartie(): ?string
     {
         return $this->codepartie;
+    }
+
+    public function setCodepartie(?string $codepartie): static
+    {
+        $this->codepartie = $codepartie;
+        return $this;
+    }
+
+    public function getIdgame(): ?int
+    {
+        return $this->idgame;
     }
 
     public function getIswin(): ?bool

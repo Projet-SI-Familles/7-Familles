@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from './services/data.service';
 import { CosmeticComponent, ComponentFamily } from './models/cosmeticComponent.model';
-import { Router } from '@angular/router';
 import { CardComponent } from './components/card/card.component';
 import { CommonModule, NgFor } from '@angular/common';
 
@@ -16,7 +17,7 @@ import { CommonModule, NgFor } from '@angular/common';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   cosmeticComponents: CosmeticComponent[] = [];
   componentFamilies: (ComponentFamily & { totalComponents: number })[] = [];
   familyDropTargets: { [key: number]: CosmeticComponent[] } = {};
@@ -29,11 +30,23 @@ export class AppComponent {
   modalOpen: boolean = false;
   showErrorNotification: boolean = false;
   shakeEffect: boolean = false;
+  gameCode: string = '';
+  private apiUrl = 'http://127.0.0.1:8000/api/games';
 
-  constructor(private dataService: DataService, private router: Router) {}
+  constructor(
+    private dataService: DataService, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private http: HttpClient
+  ) {}
 
-  /** A adapter à la mise ne place du back avec les nouveaux services */
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      if (params['code']) {
+        this.gameCode = params['code'];
+      }
+    });
+
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
 
@@ -62,7 +75,7 @@ export class AppComponent {
       this.remainingTime--;
       if (this.remainingTime <= 0) {
         clearInterval(this.intervalId);
-        this.router.navigate(['/defeat']);
+        this.endGame(false);
       }
     }, 1000);
   }
@@ -77,40 +90,31 @@ export class AppComponent {
   }
 
   selectFamily(family: ComponentFamily) {
-      if (!this.selectedComponent) return;
+    if (!this.selectedComponent) return;
 
-      if (this.selectedComponent.family?.id === family.id) {
-          this.selectedComponent.validated = true;
-          this.correctPlacements++;
-
-          // Ajoute la carte validée dans la famille correcte
-          this.familyDropTargets[family.id].push(this.selectedComponent);
-
-          // Retire la carte validée du plateau
-          this.cosmeticComponents = this.cosmeticComponents.filter(c => c.id !== this.selectedComponent!.id);
-      } else {
-          if (!this.incorrectAttempts[this.selectedComponent.id]) {
-              this.incorrectAttempts[this.selectedComponent.id] = [];
-          }
-          this.incorrectAttempts[this.selectedComponent.id].push(family.id);
-          this.remainingTime = Math.max(0, this.remainingTime - 10);
-
-          // Afficher la notification d'erreur et déclencher l'effet de shake
-          this.showErrorNotification = true;
-          setTimeout(() => this.showErrorNotification = false, 2000);
-          this.shakeEffect = true;
-          setTimeout(() => this.shakeEffect = false, 500);
+    if (this.selectedComponent.family?.id === family.id) {
+      this.selectedComponent.validated = true;
+      this.correctPlacements++;
+      this.familyDropTargets[family.id].push(this.selectedComponent);
+      this.cosmeticComponents = this.cosmeticComponents.filter(c => c.id !== this.selectedComponent!.id);
+    } else {
+      if (!this.incorrectAttempts[this.selectedComponent.id]) {
+        this.incorrectAttempts[this.selectedComponent.id] = [];
       }
+      this.incorrectAttempts[this.selectedComponent.id].push(family.id);
+      this.remainingTime = Math.max(0, this.remainingTime - 10);
 
-      this.selectedComponent = null;
-      this.modalOpen = false;
-      this.checkGame();
+      this.showErrorNotification = true;
+      setTimeout(() => this.showErrorNotification = false, 2000);
+      this.shakeEffect = true;
+      setTimeout(() => this.shakeEffect = false, 500);
+    }
+
+    this.selectedComponent = null;
+    this.modalOpen = false;
+    this.checkGame();
   }
 
-  
-  
-
-  /** Une fois le back actif, utilisation du service checkGame dans cette fonction afin de transmettre les données en cas de game finie */
   checkGame() {
     const allFamiliesComplete = this.componentFamilies.every(family => 
       this.familyDropTargets[family.id].length === family.totalComponents
@@ -118,9 +122,55 @@ export class AppComponent {
 
     if (allFamiliesComplete) {
       clearInterval(this.intervalId);
-      this.router.navigate(['/victory']);
+      this.endGame(true); 
     }
   }
+
+  
+  // Externaliser les call d'api dans un dossier API
+  endGame(isWin: boolean) {
+    if (!this.gameCode) return;
+  
+    const updateData = {
+      iswin: isWin,
+      endDate: new Date().toISOString()
+    };
+  
+    const baasUrl = 'http://localhost:3000/validate-stage';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer 1 fmJYravPGbIwwnbUeNsF83ZC ${this.gameCode}`
+    });
+  
+    const baasData = {
+      completed: isWin
+    };
+  
+    this.http.patch(`${this.apiUrl}/update/${this.gameCode}`, updateData, { headers })
+      .subscribe({
+        next: () => {
+          console.log(`✅ Partie mise à jour dans Symfony: ${isWin ? 'Victoire' : 'Défaite'}`);
+  
+          this.http.post(baasUrl, baasData, { headers }).subscribe({
+            next: () => {
+              console.log('✅ BAAS validé');
+              this.router.navigate([isWin ? '/victory' : '/defeat']);
+            },
+            error: (error) => {
+              console.error('Erreur BAAS:', error);
+              alert('Erreur lors de la validation BAAS.');
+            }
+          });
+  
+        },
+        error: (error) => {
+          console.error('Erreur mise à jour Symfony:', error);
+          alert('Erreur lors de la mise à jour de la partie.');
+        }
+      });
+  }
+  
+  
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
