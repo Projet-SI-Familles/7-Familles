@@ -1,0 +1,8 @@
+<div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-2 sm:gap-4 px-4">
+    <app-card
+      *ngFor="let component of cosmeticComponents"
+      [cosmeticComponent]="component"
+      (selectFamily)="onSelectFamily(component)">
+    </app-card>
+  </div>
+  

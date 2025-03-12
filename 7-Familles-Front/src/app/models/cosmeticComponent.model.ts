@@ -7,6 +7,7 @@ export interface CosmeticComponent {
   isFlipped: boolean;
   selected: boolean;
   validated: boolean;
+  familyUrl: String;
 }
 
 export interface ComponentFamily {

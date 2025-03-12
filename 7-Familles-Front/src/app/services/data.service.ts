@@ -14,33 +14,51 @@ export class DataService {
   constructor(private http: HttpClient) {}
 
   /**
-   * Récupère les familles et les matières premières (cosmeticComponents) en 1 fonction avec le forkJoin
+   * Récupère la liste des familles depuis l'API
+   */
+  getFamilies(): Observable<ComponentFamily[]> {
+    return this.http.get<any>(this.familiesUrl).pipe(
+      map(response => response.member.map((family: any) => ({
+        id: family.idfamily,
+        name: family.name,
+        description: family.description
+      })))
+    );
+  }
+
+  /**
+   * Récupère la liste des composants cosmétiques depuis l'API
+   */
+  getCosmeticComponents(): Observable<CosmeticComponent[]> {
+    return this.http.get<any>(this.rawMaterialsUrl).pipe(
+      map(response => response.member.map((component: any) => ({
+        id: component.idrawmaterial,
+        name: component.name,
+        description: component.description,
+        image: component.image || 'image.jpg',
+        familyUrl: component.family, // Stocke temporairement l'URL de la famille
+        isFlipped: true,
+        selected: false,
+        validated: false
+      })))
+    );
+  }
+
+  /**
+   * Récupère les familles et les composants puis les associe ensemble pour pouvoir avoir les objets en front et faire des traitement directement depuis Angular et non nécessaires à des call d'API
    */
   getData(): Observable<{ cosmeticComponents: CosmeticComponent[]; componentFamilies: ComponentFamily[] }> {
     return forkJoin({
-      families: this.http.get<any>(this.familiesUrl),
-      rawMaterials: this.http.get<any>(this.rawMaterialsUrl),
+      componentFamilies: this.getFamilies(),
+      cosmeticComponents: this.getCosmeticComponents()
     }).pipe(
-      map(({ families, rawMaterials }) => {
-        const componentFamilies: ComponentFamily[] = families.member.map((family: any) => ({
-          id: family.idfamily,
-          name: family.name,
-          description: family.description,
-        }));
-
-        const cosmeticComponents: CosmeticComponent[] = rawMaterials.member.map((component: any) => {
-          const associatedFamily = componentFamilies.find((f) => `/api/families/${f.id}` === component.family) || null;
-
-          return {
-            id: component.idrawmaterial,
-            name: component.name,
-            description: component.description,
-            image: component.image || 'image.jpg',
-            family: associatedFamily,
-            isFlipped: true,
-            selected: false,
-            validated: false,
-          };
+      map(({ componentFamilies, cosmeticComponents }) => {
+        cosmeticComponents.forEach(component => {
+          if (typeof component.familyUrl === 'string') {
+            const familyId = component.familyUrl.split('/').pop();
+            component.family = componentFamilies.find(f => f.id.toString() === familyId) || null;
+          }
+          delete (component as any).familyUrl;
         });
 
         return { cosmeticComponents, componentFamilies };

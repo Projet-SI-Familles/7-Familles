@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from './services/data.service';
 import { CosmeticComponent, ComponentFamily } from './models/cosmeticComponent.model';
-import { CardComponent } from './components/card/card.component';
-import { CommonModule, NgFor } from '@angular/common';
+import { GameApiService } from './services/game-api/game-api.service';
+import { CommonModule } from '@angular/common';
+import { ModalComponent } from './components/modal/modal.component';
+import { GameBoardComponent } from './components/game-board/game-board.component';
+import { FamilyComponent } from './components/family/family.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    CardComponent,
-    NgFor,
     CommonModule,
+    ModalComponent,
+    GameBoardComponent,
+    FamilyComponent
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -31,13 +34,12 @@ export class AppComponent implements OnInit {
   showErrorNotification: boolean = false;
   shakeEffect: boolean = false;
   gameCode: string = '';
-  private apiUrl = 'http://127.0.0.1:8000/api/games';
 
   constructor(
-    private dataService: DataService, 
-    private router: Router, 
+    private dataService: DataService,
+    private router: Router,
     private route: ActivatedRoute,
-    private http: HttpClient
+    private gameApiService: GameApiService
   ) {}
 
   ngOnInit() {
@@ -46,25 +48,32 @@ export class AppComponent implements OnInit {
         this.gameCode = params['code'];
       }
     });
-
+  
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
-
-    this.dataService.getData().subscribe((data) => {
-      this.cosmeticComponents = data.cosmeticComponents;
-
-      this.componentFamilies = data.componentFamilies.map(family => ({
-        ...family,
-        totalComponents: this.cosmeticComponents.filter(c => c.family?.id === family.id).length
-      }));
-
-      this.componentFamilies.forEach(family => {
-        this.familyDropTargets[family.id] = [];
-      });
-
-      this.startTimer();
+  
+    this.dataService.getData().subscribe({
+      next: ({ cosmeticComponents, componentFamilies }) => {
+        this.cosmeticComponents = cosmeticComponents;
+        this.componentFamilies = componentFamilies.map(family => ({
+          ...family,
+          totalComponents: cosmeticComponents.filter(c => c.family?.id === family.id).length
+        }));
+  
+        this.familyDropTargets = this.componentFamilies.reduce((acc, family) => {
+          acc[family.id] = [];
+          return acc;
+        }, {} as { [key: number]: CosmeticComponent[] });
+  
+        this.startTimer();
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des données:', error);
+        alert('Erreur de chargement des composants et familles.');
+      }
     });
   }
+  
 
   checkScreenSize() {
     this.isResponsive = window.innerWidth < 1024;
@@ -122,55 +131,35 @@ export class AppComponent implements OnInit {
 
     if (allFamiliesComplete) {
       clearInterval(this.intervalId);
-      this.endGame(true); 
+      this.endGame(true);
     }
   }
 
-  
-  // Externaliser les call d'api dans un dossier API
   endGame(isWin: boolean) {
     if (!this.gameCode) return;
-  
-    const updateData = {
-      iswin: isWin,
-      endDate: new Date().toISOString()
-    };
-  
-    const baasUrl = 'http://localhost:3000/validate-stage';
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer 1 fmJYravPGbIwwnbUeNsF83ZC ${this.gameCode}`
+
+    this.gameApiService.updateGame(this.gameCode, isWin).subscribe({
+      next: () => {
+        console.log(`Partie mise à jour dans Symfony: ${isWin ? 'Victoire' : 'Défaite'}`);
+
+        this.gameApiService.validateGameWithBaas(this.gameCode, isWin).subscribe({
+          next: () => {
+            console.log('BAAS validé');
+            this.router.navigate([isWin ? '/victory' : '/defeat']);
+          },
+          error: (error) => {
+            console.error('Erreur BAAS:', error);
+            alert('Erreur lors de la validation BAAS.');
+          }
+        });
+
+      },
+      error: (error) => {
+        console.error('Erreur mise à jour Symfony:', error);
+        alert('Erreur lors de la mise à jour de la partie.');
+      }
     });
-  
-    const baasData = {
-      completed: isWin
-    };
-  
-    this.http.patch(`${this.apiUrl}/update/${this.gameCode}`, updateData, { headers })
-      .subscribe({
-        next: () => {
-          console.log(`✅ Partie mise à jour dans Symfony: ${isWin ? 'Victoire' : 'Défaite'}`);
-  
-          this.http.post(baasUrl, baasData, { headers }).subscribe({
-            next: () => {
-              console.log('✅ BAAS validé');
-              this.router.navigate([isWin ? '/victory' : '/defeat']);
-            },
-            error: (error) => {
-              console.error('Erreur BAAS:', error);
-              alert('Erreur lors de la validation BAAS.');
-            }
-          });
-  
-        },
-        error: (error) => {
-          console.error('Erreur mise à jour Symfony:', error);
-          alert('Erreur lors de la mise à jour de la partie.');
-        }
-      });
   }
-  
-  
 
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);

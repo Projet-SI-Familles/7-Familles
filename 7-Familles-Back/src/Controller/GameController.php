@@ -33,7 +33,7 @@ final class GameController extends AbstractController
 
         $game = new Game();
         $game->setCodepartie($codepartie);
-        $game->setStartDate(new \DateTime());
+        $game->setStartDate(new \DateTime('now', new \DateTimeZone('Europe/Paris')));
         $game->setEndDate(null);
         $game->setIswin(null);
 
@@ -71,7 +71,7 @@ final class GameController extends AbstractController
             $game->setIswin($data['iswin']);
         }
         if (isset($data['endDate'])) {
-            $game->setEndDate(new \DateTime($data['endDate']));
+            $game->setEndDate(new \DateTime($data['endDate'], new \DateTimeZone('Europe/Paris')));
         }
 
         $entityManager->persist($game);
