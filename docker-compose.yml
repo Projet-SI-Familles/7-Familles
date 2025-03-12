@@ -23,8 +23,6 @@ services:
       DATABASE_URL: "postgresql://postgres:postgres@postgres_db:5432/projetsi"
     depends_on:
       - postgres_db
-    networks:
-      - my_network  # 🔥 Ajout de Symfony au réseau du BAAS
 
   postgres_db:
     image: postgres:latest
@@ -39,12 +37,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./dump.sql:/docker-entrypoint-initdb.d/dump.sql
-    networks:
-      - my_network  # 🔥 Ajout de PostgreSQL au même réseau (optionnel)
 
 volumes:
   postgres_data:
-
-networks:
-  my_network:
-    external: true  # 🔥 On indique que le réseau est déjà existant
