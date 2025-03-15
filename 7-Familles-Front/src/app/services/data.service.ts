@@ -36,7 +36,7 @@ export class DataService {
         name: component.name,
         description: component.description,
         image: component.image || 'image.jpg',
-        familyUrl: component.family, // Stocke temporairement l'URL de la famille
+        familyUrl: component.family,
         isFlipped: true,
         selected: false,
         validated: false
@@ -45,7 +45,7 @@ export class DataService {
   }
 
   /**
-   * Récupère les familles et les composants puis les associe ensemble pour pouvoir avoir les objets en front et faire des traitement directement depuis Angular et non nécessaires à des call d'API
+   * Récupère les familles et les composants puis les associe ensemble
    */
   getData(): Observable<{ cosmeticComponents: CosmeticComponent[]; componentFamilies: ComponentFamily[] }> {
     return forkJoin({

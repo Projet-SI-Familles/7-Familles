@@ -1,6 +1,6 @@
 <div 
   id="card" 
-  class="block w-full sm:w-40 md:w-44 lg:w-48 h-56 sm:h-64 md:h-72 p-2 rounded-lg shadow-md bg-green-400 flex flex-col justify-between overflow-hidden"
+  class="block w-full sm:w-40 md:w-44 lg:w-48 h-56 sm:h-64 md:h-72 p-2 rounded-lg shadow-md bg-[#155dfc] flex flex-col justify-between overflow-hidden"
   [class.selected]="cosmeticComponent.selected"
   [class.validated]="cosmeticComponent.validated"
   (click)="flipCard($event)"
@@ -10,29 +10,31 @@
     [class.flipped]="isFlipped"
   >
     <!-- Recto -->
-    <div class="absolute w-full h-full bg-green-400 flex flex-col justify-between card-front">
-      <div id="inside" class="p-2 bg-green-200 rounded-lg h-full flex flex-col justify-between">
+    <div class="absolute w-full h-full bg-[#155dfc] flex flex-col justify-between card-front">
+      <div id="inside" class="p-2 bg-[#1e4fcc] rounded-lg h-full flex flex-col justify-between">
         <header class="flex flex-col items-center mb-2">
-          <h3 id="name" class="font-bold text-center text-[#2e7d32] text-xs sm:text-sm md:text-base">
+          <h3 id="name" class="font-bold text-center text-white text-xs sm:text-sm md:text-base">
             {{ cosmeticComponent.name }}
           </h3>
         </header>
 
-        <figure id="art" class="m-0 p-2 bg-green-100 rounded-md flex-grow flex justify-center items-center">
+        <figure id="art" class="m-0 p-2 bg-[#3b6edc] rounded-md flex-grow flex justify-center items-center">
           <img class="max-w-full max-h-full object-contain rounded-md"
-               [src]="'img/' + cosmeticComponent.image"
+               [src]="cosmeticComponent.image"
                alt="{{ cosmeticComponent.name }}" />
         </figure>
       </div>
     </div>
 
     <!-- Verso -->
-    <div class="absolute w-full h-full bg-green-500 flex items-center justify-center card-back">
-      <p class="text-xs sm:text-sm text-white p-3 text-center">{{ cosmeticComponent.description }}</p>
+    <div class="absolute w-full h-full bg-[#003bb3] flex items-center justify-center card-back">
+      <p class="text-xs sm:text-sm text-white p-3 text-center">
+        {{ cosmeticComponent.description }}
+      </p>
     </div>
   </div>
 
-  <button class="mt-2 px-3 py-1 bg-green-600 text-white text-xs rounded hover:bg-green-700 family-button"
+  <button class="mt-2 px-3 py-1 bg-[#002b8a] text-white text-xs rounded hover:bg-[#001e66] family-button"
           (click)="onSelectFamily($event)">
     Choisir une famille
   </button>

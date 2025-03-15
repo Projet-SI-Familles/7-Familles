@@ -111,7 +111,7 @@ export class AppComponent implements OnInit {
         this.incorrectAttempts[this.selectedComponent.id] = [];
       }
       this.incorrectAttempts[this.selectedComponent.id].push(family.id);
-      this.remainingTime = Math.max(0, this.remainingTime - 10);
+      this.remainingTime = Math.max(0, this.remainingTime - 5);
 
       this.showErrorNotification = true;
       setTimeout(() => this.showErrorNotification = false, 2000);

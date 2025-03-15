@@ -6,8 +6,8 @@
 }
 
 #card.selected {
-  border: 3px solid #007BFF;
-  box-shadow: 0 0 15px #007BFF, 0 0 30px rgba(0, 123, 255, 0.6);
+  border: 3px solid #155dfc;
+  box-shadow: 0 0 15px #155dfc, 0 0 30px rgba(21, 93, 252, 0.6);
 }
 
 #card.validated {
@@ -19,9 +19,6 @@
 .relative {
   transform-style: preserve-3d;
   transition: transform 0.8s ease-in-out;
-  width: 100%;
-  height: 100%;
-  position: relative;
 }
 
 .relative.flipped {
@@ -42,19 +39,18 @@
 .card-front {
   transform: rotateY(0deg);
   z-index: 2;
-  background-color: #4caf50;
+  background-color: #155dfc;
 }
 
 .card-back {
   transform: rotateY(180deg);
-  background-color: #2e7d32;
+  background-color: #003bb3;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
   padding: 10px;
   text-align: center;
-  
 }
 
 #art {
@@ -62,7 +58,6 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  max-height: 100%;
   overflow: hidden;
 }
 
