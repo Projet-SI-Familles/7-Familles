@@ -109,21 +109,21 @@ public function load(ObjectManager $manager): void
     $rawMaterial6->setName('Glycérine');
     $rawMaterial6->setDescription('Agent hydratant');
     $rawMaterial6->setImage($prefix_img . "glycérine.webp");
-    $rawMaterial6->setFamily($family7);
+    $rawMaterial6->setFamily($family6);
     $manager->persist($rawMaterial6);
 
     $rawMaterial7 = new RawMaterial();
     $rawMaterial7->setName('Eau minérale');
     $rawMaterial7->setDescription('Eau d’origine souterraine');
     $rawMaterial7->setImage($prefix_img . "eau-minérale.png");
-    $rawMaterial7->setFamily($family7);
+    $rawMaterial7->setFamily($family6);
     $manager->persist($rawMaterial7);
 
     $rawMaterial8 = new RawMaterial();
     $rawMaterial8->setName('Hydrolat');
     $rawMaterial8->setDescription('Produit aqueux');
     $rawMaterial8->setImage($prefix_img . "hydrolat.png");
-    $rawMaterial8->setFamily($family7);
+    $rawMaterial8->setFamily($family6);
     $manager->persist($rawMaterial8);
 
     $rawMaterial9 = new RawMaterial();
