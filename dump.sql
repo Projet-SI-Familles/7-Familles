@@ -90,23 +90,22 @@ INSERT INTO public.Family (idfamily, name, description) VALUES (7, 'Phase grasse
 -- Data for Name: RawMaterial; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (3, 'Huile végétale ', 'Corps gras extrait d’une plante oléagineuse (dont les graines, noix ou fruits contiennent des lipides)', NULL, 7);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (4, 'Beurre de karité', 'Corps gras extrait des fruits de Karité (noix) qui protège des rayons du soleil', NULL, 7);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (6, 'Caféine', 'Permet de raffermir la peau', NULL, 1);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (7, 'Vitamine E', 'Agit contre le vieillissement de la peau', NULL, 1);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (8, 'Allantoïne ', 'Permet de réparer la peau et de la rendre plus douce', NULL, 1);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (9, 'Glycérine ', 'Agent hydratant', NULL, 7);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (10, 'Eau minérale', 'Eau d’origine souterraine', NULL, 7);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (11, 'Hydrolat ', 'Produit aqueux', NULL, 7);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (12, 'Lécithine ', 'Permet de mélanger eau et huile à froid', NULL, 5);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (13, 'Cosgard ', 'Évite le développement des bactéries', NULL, 4);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (14, 'Extrait de pépins de pamplemousse', 'Évite le développement des bactéries', NULL, 4);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (15, 'Poudre de Mica', 'Apporte de la couleur à un produit', NULL, 3);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (16, 'Oxyde noir', 'Fonce la teinte d’un produit', NULL, 3);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (1, 'Cire d''abeille', 'Epaississant', NULL, 2);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (2, 'Gomme xanthane', 'Permet d’épaissir et gélifier un produit
-', NULL, 2);
-INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (5, 'Gomme guar', 'Permet de gélifier un produit', NULL, 2);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (3, 'Huile végétale ', 'Corps gras extrait d’une plante oléagineuse (dont les graines, noix ou fruits contiennent des lipides)', '/img/composants/huile-vegetale.webp', 7);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (4, 'Beurre de karité', 'Corps gras extrait des fruits de Karité (noix) qui protège des rayons du soleil', '/img/composants/beurre-karité.png', 7);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (6, 'Caféine', 'Permet de raffermir la peau', '/img/composants/cafeine.png', 1);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (7, 'Vitamine E', 'Agit contre le vieillissement de la peau', '/img/composants/vitamine-e.webp', 1);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (8, 'Allantoïne ', 'Permet de réparer la peau et de la rendre plus douce', '/img/composants/allantoïne.png', 1);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (9, 'Glycérine ', 'Agent hydratant', '/img/composants/glycérine.webp', 6);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (10, 'Eau minérale', 'Eau d’origine souterraine', '/img/composants/eau-minérale.png', 6);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (11, 'Hydrolat ', 'Produit aqueux', '/img/composants/hydrolat.png', 6);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (12, 'Lécithine ', 'Permet de mélanger eau et huile à froid', '/img/composants/lécithine.png', 5);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (13, 'Cosgard ', 'Évite le développement des bactéries', '/img/composants/cosgard.webp', 4);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (14, 'Extrait de pépins de pamplemousse', 'Évite le développement des bactéries', '/img/composants/extrait-de-pépins-de-pamplemousse.png', 4);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (15, 'Poudre de Mica', 'Apporte de la couleur à un produit', '/img/composants/poudre-de-mica.jpg', 3);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (16, 'Oxyde noir', 'Fonce la teinte d’un produit', '/img/composants/oxyde-noir.png', 3);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (1, 'Cire d''abeille', 'Epaississant', '/img/composants/cire-abeille.png', 2);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (2, 'Gomme xanthane', 'Permet d’épaissir et gélifier un produit', '/img/composants/gomme-xanthane.png', 2);
+INSERT INTO public.RawMaterial (idRawMaterial, name, description, image, idfamily) VALUES (5, 'Gomme guar', 'Permet de gélifier un produit', '/img/composants/gomme-guar.png', 2);
 
 
 --
