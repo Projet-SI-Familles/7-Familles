@@ -18,10 +18,12 @@ export class ModalComponent {
   @Output() selectFamily = new EventEmitter<ComponentFamily>();
   @Output() closeModal = new EventEmitter<void>();
 
+  /** Envoie la famille choisie au composant pirncipal pour réaliser le traitement */
   onSelectFamily(family: ComponentFamily) {
     this.selectFamily.emit(family);
   }
 
+  /** Envoie l'informatique de fermer le modal au composant principal */
   onClose() {
     this.closeModal.emit();
   }

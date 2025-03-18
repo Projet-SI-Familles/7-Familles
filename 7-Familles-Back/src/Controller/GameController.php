@@ -12,6 +12,9 @@ use Symfony\Component\Routing\Attribute\Route;
 final class GameController extends AbstractController
 {
 
+    /**
+     * Permet la création d'une partie à partir de son code de partie fournis par l'équipe d'organisation
+     */
     #[Route('/api/game/create', name: 'create_game', methods: ['POST'])]
     public function createGame(Request $request, EntityManagerInterface $entityManager): JsonResponse
     {
@@ -53,6 +56,9 @@ final class GameController extends AbstractController
 
 
 
+    /**
+     * Permet d'update une partie si elle est gagnée ou perdue
+     */
     #[Route('/api/games/update/{codepartie}', name: 'update_game_by_codepartie', methods: ['PATCH'])]
     public function updateGameByCodepartie(
         string $codepartie,

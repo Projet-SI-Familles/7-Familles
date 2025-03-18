@@ -45,7 +45,8 @@ export class DataService {
   }
 
   /**
-   * Récupère les familles et les composants puis les associe ensemble
+   * Récupère les familles et les composants puis les associe ensemble grâce à un forkJoin qui combine deux Observables et leur associe un traitement pour return une valeur voulu 
+   * (ici on veut associer une famille à un composant car il a just l'URL de base)
    */
   getData(): Observable<{ cosmeticComponents: CosmeticComponent[]; componentFamilies: ComponentFamily[] }> {
     return forkJoin({

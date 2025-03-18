@@ -15,6 +15,7 @@ export class HomeComponentComponent {
 
   constructor(private router: Router, private gameApiService: GameApiService) {}
 
+  /** Permet de vérifier le code entré par l'utilisateur, ce dernier doit être validé par le BAAS grâce à un call d'API avant d'accèder à la partie */
   startGame() {
     if (!this.gameCode.trim()) {
       alert('Veuillez entrer un code de partie valide.');

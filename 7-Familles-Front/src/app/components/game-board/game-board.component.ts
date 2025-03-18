@@ -14,6 +14,7 @@ export class GameBoardComponent {
   @Input() cosmeticComponents: CosmeticComponent[] = [];
   @Output() selectFamily = new EventEmitter<CosmeticComponent>();
 
+  /** Envoie le composant concerné par la selection de famille au composant principal */
   onSelectFamily(component: CosmeticComponent) {
     this.selectFamily.emit(component);
   }

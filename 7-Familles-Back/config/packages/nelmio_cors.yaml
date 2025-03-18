@@ -6,7 +6,7 @@ nelmio_cors:
         expose_headers: ['Link']
         max_age: 3600
     paths:
-        '^/api/':  # 🔥 Autorise toutes les routes qui commencent par "/api/"
+        '^/api/':
             allow_origin: ['http://localhost:4200']
             allow_methods: ['GET', 'OPTIONS', 'POST', 'PUT', 'PATCH', 'DELETE']
             allow_headers: ['Content-Type', 'Authorization']

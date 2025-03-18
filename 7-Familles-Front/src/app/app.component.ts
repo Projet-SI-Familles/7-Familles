@@ -20,6 +20,9 @@ import { FamilyComponent } from './components/family/family.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
+/**
+ * Composant principal implémentant OnInit pour initaliser le plateau de jeu et les familles
+*/
 export class AppComponent implements OnInit {
   cosmeticComponents: CosmeticComponent[] = [];
   componentFamilies: (ComponentFamily & { totalComponents: number })[] = [];
@@ -42,6 +45,7 @@ export class AppComponent implements OnInit {
     private gameApiService: GameApiService
   ) {}
 
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if (params['code']) {
@@ -49,9 +53,13 @@ export class AppComponent implements OnInit {
       }
     });
   
+    
     this.checkScreenSize();
     window.addEventListener('resize', () => this.checkScreenSize());
   
+    /** Associe les call d'API aux variables qui seront utilisées dans les templates
+     * familyDropTargets correspond au nomrbe restant de composant pour chaque famille
+     */
     this.dataService.getData().subscribe({
       next: ({ cosmeticComponents, componentFamilies }) => {
         this.cosmeticComponents = cosmeticComponents;
@@ -75,10 +83,12 @@ export class AppComponent implements OnInit {
   }
   
 
+  /** Gère le responsive dynamiquement */
   checkScreenSize() {
     this.isResponsive = window.innerWidth < 1024;
   }
 
+  /** Gère le timer, démarrage mais aussi la fin lorsqu'il ne reste plus de temps */
   startTimer() {
     this.intervalId = setInterval(() => {
       this.remainingTime--;
@@ -89,15 +99,18 @@ export class AppComponent implements OnInit {
     }, 1000);
   }
 
+  /** Utilisé pour ouvrir le modal du choix pour un composant */
   openModal(component: CosmeticComponent) {
     this.selectedComponent = component;
     this.modalOpen = true;
   }
 
+  /** Ferme le modal (est emit depuis le composant du modal) */
   closeModal() {
     this.modalOpen = false;
   }
 
+  /** Permet de selectionner une famille sur le modal, de faire le traitemetn sans call d'API et d'obtenir les familles incorrectes pour chaque composant */
   selectFamily(family: ComponentFamily) {
     if (!this.selectedComponent) return;
 
@@ -124,6 +137,7 @@ export class AppComponent implements OnInit {
     this.checkGame();
   }
 
+  /** Chack l'etat de la partie après chaque tentative ou quand le chrono est finis */
   checkGame() {
     const allFamiliesComplete = this.componentFamilies.every(family => 
       this.familyDropTargets[family.id].length === family.totalComponents
@@ -135,6 +149,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  /** Permet de définir le status de la partie comme gagnée ou perdu dans notre back et aussi réalise le call vers le BAAS afin de valider la fin de l'epreuve */
   endGame(isWin: boolean) {
     if (!this.gameCode) return;
 
@@ -161,6 +176,7 @@ export class AppComponent implements OnInit {
     });
   }
 
+  /** Formate le temps pour le chronomètre */
   formatTime(seconds: number): string {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
