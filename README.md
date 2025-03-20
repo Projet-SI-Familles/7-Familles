@@ -1,30 +1,44 @@
-# L3 Informatique -- Framework Web 2
+# Projet de SI CreaCosm
 
-## Adaptation du fichier docker-compose.yml
+## Build le docker
+```bash
+docker-compose build
+```
 
-Il faut modifier les lignes suivantes dans docker-compose.yml :
+## Lancer le docker
+```bash
+docker-compose up
+```
 
-- USERNAME est votre nom d'utilisateur
-- UID votre identifiant utilisateur
-- MAIL
-- NAME
+## Aller dans le front et installer les dépendances
+```bash
+npm install
+```
 
-On obtient les deux premières informations en exécutant la commande "id" dans un terminal du système hôte.
+## Aller dans le back et installer les dépendances
+```bash
+symfony composer install
+```
 
-Exemple: 
+## Lancer le serveur symfony
+```bash
+symfony serve --allow-all-ip
+```
 
-    args:
-      USERNAME: frederic.loulergue
-      UID: 11688
-      MAIL: frederic.loulergue@univ-orleans.fr
-      NAME: "Frédéric Loulergue"
+## Lancer le serveur front
+```bash
+ng serve --host 0.0.0.0 &
+```
 
-Il est également conseillé de personnaliser le nom du container. Dans cette version (voir docker-compose.yml), j'ai appelé le container : container-fw2-tp-bidule
+## Accéder à l'application
+```bash
+http://localhost:8020
+```
 
-## Démarrage
+## En cas de problème avec le dump de la bd postegres, nous avons aussi créé une fixture dans symfony il suffit donc de la load pour initaliser les données.
 
-L'utilisation est:
+```bash
+symfony console doctrine:fixtures:load
+```
 
-    docker-compose build
-    docker-compose up -d
-    docker attach le_nom_choisi_du_container_à_l_étape_précédente
+## ATTENTION! l'application ne marchera qu'en présence du BAAS de gestion des epreuves (groupe de Nicolas)

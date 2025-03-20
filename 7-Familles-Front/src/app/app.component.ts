@@ -137,7 +137,7 @@ export class AppComponent implements OnInit {
     this.checkGame();
   }
 
-  /** Chack l'etat de la partie après chaque tentative ou quand le chrono est finis */
+  /** Check l'etat de la partie après chaque tentative ou quand le chrono est finis */
   checkGame() {
     const allFamiliesComplete = this.componentFamilies.every(family => 
       this.familyDropTargets[family.id].length === family.totalComponents
