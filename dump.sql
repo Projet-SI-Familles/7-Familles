@@ -1,3 +1,12 @@
+-- Force PostgreSQL à ne pas exécuter tout dans une seule transaction
+set ON_ERROR_STOP on
+SET client_min_messages TO WARNING;
+
+-- Drop tables in proper order
+DROP TABLE IF EXISTS public.RawMaterial CASCADE;
+DROP TABLE IF EXISTS public.Game CASCADE;
+DROP TABLE IF EXISTS public.Family CASCADE;
+
 --
 -- PostgreSQL database dump
 --
@@ -28,10 +37,12 @@ SET default_table_access_method = heap;
 -- Name: Family; Type: TABLE; Schema: public; Owner: postgres
 --
 
+
+
 CREATE TABLE public.Family (
-    idfamily integer NOT NULL,
-    name character varying(50),
-    description text
+                               idfamily integer NOT NULL,
+                               name character varying(50),
+                               description text
 );
 
 
@@ -42,12 +53,16 @@ ALTER TABLE public.Family OWNER TO postgres;
 -- Name: Game; Type: TABLE; Schema: public; Owner: postgres
 --
 
+DROP TABLE IF EXISTS Game CASCADE;
+
 CREATE TABLE public.Game (
-    codepartie integer NOT NULL,
-    iswin boolean,
-    start_date timestamp without time zone,
-    end_date timestamp without time zone
+                               idgame SERIAL PRIMARY KEY,
+                               codepartie VARCHAR(255) NOT NULL,
+                               iswin BOOLEAN,
+                               start_date TIMESTAMP,
+                               end_date TIMESTAMP
 );
+
 
 
 ALTER TABLE public.Game OWNER TO postgres;
@@ -58,11 +73,11 @@ ALTER TABLE public.Game OWNER TO postgres;
 --
 
 CREATE TABLE public.RawMaterial (
-    idRawMaterial integer NOT NULL,
-    name character varying(50),
-    description text,
-    image character varying(200),
-    idfamily integer NOT NULL
+                                    idRawMaterial integer NOT NULL,
+                                    name character varying(50),
+                                    description text,
+                                    image character varying(200),
+                                    idfamily integer NOT NULL
 );
 
 
@@ -131,8 +146,7 @@ ALTER TABLE ONLY public.Family
 -- Name: Game game_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY public.Game
-    ADD CONSTRAINT game_pkey PRIMARY KEY (codepartie);
+
 
 
 --
