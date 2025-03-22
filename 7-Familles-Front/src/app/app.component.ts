@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from './components/modal/modal.component';
 import { GameBoardComponent } from './components/game-board/game-board.component';
 import { FamilyComponent } from './components/family/family.component';
+import { shuffle } from './services/shuffleArray'
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { FamilyComponent } from './components/family/family.component';
     CommonModule,
     ModalComponent,
     GameBoardComponent,
-    FamilyComponent
+    FamilyComponent,
   ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
@@ -62,7 +63,7 @@ export class AppComponent implements OnInit {
      */
     this.dataService.getData().subscribe({
       next: ({ cosmeticComponents, componentFamilies }) => {
-        this.cosmeticComponents = cosmeticComponents;
+        this.cosmeticComponents = shuffle(cosmeticComponents);
         this.componentFamilies = componentFamilies.map(family => ({
           ...family,
           totalComponents: cosmeticComponents.filter(c => c.family?.id === family.id).length
