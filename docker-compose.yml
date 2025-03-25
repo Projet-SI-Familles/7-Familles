@@ -9,7 +9,7 @@ services:
         MAIL: matis.gasse@etu.univ-orleans.fr
         NAME: "Matis Gasse"
     container_name: container-projet-SI 
-    command: /bin/bash
+    command: ./start.sh
     tty: true
     stdin_open: true
     volumes:
