@@ -5,7 +5,7 @@
 docker-compose build
 ```
 
-## Lancer le docker
+## Lancer le docker (Ajout d'un script lançant directement le projet avec cette commande, attention, il faut build le front et le back avant de pouvoir utiliser l'application)
 ```bash
 docker-compose up
 ```
@@ -20,12 +20,12 @@ npm install
 symfony composer install
 ```
 
-## Lancer le serveur symfony
+## Lancer le serveur symfony (en cas de bug du script de lancement)
 ```bash
 symfony serve --allow-all-ip
 ```
 
-## Lancer le serveur front
+## Lancer le serveur front (en cas de bug du script de lancement)
 ```bash
 ng serve --host 0.0.0.0 &
 ```
@@ -35,10 +35,9 @@ ng serve --host 0.0.0.0 &
 http://localhost:8020
 ```
 
-## En cas de problème avec le dump de la bd postegres, nous avons aussi créé une fixture dans symfony il suffit donc de la load pour initaliser les données.
+## En cas de problème avec le dump de la bd postegres (le dump qui bug parfois), je conseil de se connecter à postegres et executer le script dump.sql
 
-```bash
-symfony console doctrine:fixtures:load
-```
+### Lien : DATABASE_URL=postgresql://postgres:postgres@postgres_db:5432/projetsi
+
 
 ## ATTENTION! l'application ne marchera qu'en présence du BAAS de gestion des epreuves (groupe de Nicolas)
