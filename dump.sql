@@ -1,5 +1,4 @@
 -- Force PostgreSQL à ne pas exécuter tout dans une seule transaction
-set ON_ERROR_STOP on
 SET client_min_messages TO WARNING;
 
 -- Drop tables in proper order

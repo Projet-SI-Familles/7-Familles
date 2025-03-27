@@ -3,13 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, forkJoin } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CosmeticComponent, ComponentFamily } from '../models/cosmeticComponent.model';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  private familiesUrl = 'http://127.0.0.1:8000/api/families';
-  private rawMaterialsUrl = 'http://127.0.0.1:8000/api/rawmaterials';
+  private familiesUrl = `${environment.BACKEND_URL}/api/families`;
+  private rawMaterialsUrl = `${environment.BACKEND_URL}/api/rawmaterials`;
+  
 
   constructor(private http: HttpClient) {}
 

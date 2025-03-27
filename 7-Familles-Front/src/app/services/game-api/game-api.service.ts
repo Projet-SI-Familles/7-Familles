@@ -1,16 +1,18 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameApiService {
-  private apiUrl = 'http://127.0.0.1:8000/api/games';
-  private baasUrl = 'http://localhost:3000/validate-stage';
-  private baasAuth = 'Bearer 1 fmJYravPGbIwwnbUeNsF83ZC';
-  private symfonyApiUrl = 'http://127.0.0.1:8000/api/game/create';
-  private baasApiUrl = 'http://localhost:3000/get-code-validity';
+  private apiUrl = `${environment.BACKEND_URL}/api/games`;
+  private baasUrl = `${environment.BAAS_API_URL}/validate-stage`;
+  private baasAuth = environment.BAAS_AUTH;
+  private symfonyApiUrl = `${environment.BACKEND_URL}/api/game/create`;
+  private baasApiUrl = `${environment.BAAS_API_URL}/get-code-validity`;
 
   constructor(private http: HttpClient) {}
 
@@ -20,9 +22,8 @@ export class GameApiService {
   validateGameCode(gameCode: number): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': `Bearer 1 fmJYravPGbIwwnbUeNsF83ZC`
+      'Authorization': this.baasAuth
     });
-
     return this.http.post(this.baasApiUrl, { code: gameCode }, { headers });
   }
 
